@@ -1,0 +1,26 @@
+
+insert into author (name,surname)
+values ("Bob","Dylan");
+
+insert into author (name,surname)
+values ("Charlie","Chaplin");
+insert into author (name,surname)
+values ("Theo","Lawrence");
+insert into author (name,surname)
+values ("Ella","Sade");
+insert into author (name,surname)
+values ("Katja","Brandis");
+
+insert into author (name,surname)
+values ("Isaac","Asimov");
+insert into author (name,surname)
+values ("Neil","Gaiman");
+insert into author (name,surname)
+values ("Peter","O'Donnell");
+insert into author (name,surname)
+values ("Jeff","Kinney");
+insert into author (name,surname)
+values ("Guy","Kawasaki");
+
+insert into author (name,surname)
+values ("Dima","Vorobev");
