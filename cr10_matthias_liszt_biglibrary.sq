@@ -19,7 +19,7 @@ create table author(
 
 create table publisher(
  publisherId int not null auto_increment, 
- name varchar(32),
+ publisherName varchar(32),
  address varchar(64),
  size varchar(8),
  primary key(publisherId)
