@@ -1,0 +1,48 @@
+
+create database cr10_matthias_liszt_biglibrary character set utf8mb4;
+
+create table userdata(
+ userId int not null auto_increment,
+ userName varchar(16),
+ name varchar(16),
+ surname varchar(32),
+ password varchar(255),
+ primary key(userId)
+);
+
+create table author(
+ authorId int not null auto_increment, 
+ name varchar(16),
+ surname varchar(32),
+ primary key(authorId)
+);
+
+create table publisher(
+ publisherId int not null auto_increment, 
+ name varchar(32),
+ address varchar(64),
+ size varchar(8),
+ primary key(publisherId)
+);
+
+create table media(
+ mediaId int not null auto_increment, 
+ isbn int, 
+ title varchar(128),
+ publisherDate date,
+ publisherId int, 
+ mediaType varchar(8),
+ image varchar(128),
+ authorId int, 
+ description varchar(1024),
+ primary key(mediaId)
+);
+
+create table transactiondata(
+ transactionId int not null auto_increment, 
+ userId int,
+ mediaId int, 
+ active int,
+ primary key(transactionId)
+);
+

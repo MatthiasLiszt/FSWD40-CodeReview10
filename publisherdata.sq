@@ -1,0 +1,42 @@
+
+insert into publisher (name,address,size)
+values ("Columbia Records","Oxford Street 1, 11333 Washington","big");
+
+insert into publisher (name,address,size)
+values ("United Artists","Oxford Street 3, 11333 Washington","big");
+
+insert into publisher (name,address,size)
+values ("Columbia Pictures","Oxford Street 21, 11333 Washington","big");
+
+insert into publisher (name,address,size)
+values ("Epic","Oxford Street 23, 11333 Washington","big");
+
+insert into publisher (name,address,size)
+values ("Bild","Bonygasse 27, 1120 Wien","small");
+
+
+insert into publisher (name,address,size)
+values ("Heyne","Main Street 1, 90210 Beverly Hills","medium");
+
+
+insert into publisher (name,address,size)
+values ("Vertigo","Main Street 23, 90210 Beverly Hills","medium");
+
+insert into publisher (name,address,size)
+values ("Titan Books","Main Street 101, 90210 Beverly Hills","big");
+
+insert into publisher (name,address,size)
+values ("Krauthappelverlag","Hauptstrasse 3, 1136 Wien","small");
+
+insert into publisher (name,address,size)
+values ("Nasenbohrverlag","Klostergasse 3, 1230 Wien","small");
+
+insert into publisher (name,address,size)
+values ("Am Sand Verlag","Beschaeftigungsstrasse 8, 1220 Wien","small");
+
+insert into publisher (name,address,size)
+values ("Kotverlag","Kettengasse 33, 1040 Wien","small");
+
+
+
+
