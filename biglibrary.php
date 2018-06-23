@@ -18,8 +18,9 @@ function connectDB()
    }  
 
  function getAllMedia($connect){
-  $sql="select media.mediaId, media.title, media.image, media.mediaType, media.description, author.name, author.surname, media.publisherId, media.publisherDate,publisher.publisherName from media inner join author on author.authorId=media.authorId inner join publisher on publisher.publisherId = media.publisherId";
+  $sql="select media.mediaId, media.title, media.image, media.mediaType, media.description, author.name, author.surname, media.publisherId, media.publisherDate,publisher.publisherName,media.isbn from media inner join author on author.authorId=media.authorId inner join publisher on publisher.publisherId = media.publisherId";
   $result=mysqli_query($connect,$sql);
+  
 
   if(!isset($_COOKIE['librarylog']))
    {$SESSION=false;}
@@ -37,25 +38,63 @@ function connectDB()
                 $description=$row['description'];
                 $author=$row['name']." ".$row['surname'];
                 $publisherDate=$row['publisherDate'];
-                $publisher=$row['publisherName']; 
+                $publisher=$row['publisherName'];
+                $isbn=$row['isbn']; 
 
-                $element="<div class='col-sm-3 col-md-3 col-lg-3 media'>";
+                $element="<div class='col-sm-3 col-md-3 col-lg-3'><div class='media'>";
                 $divend="<//div>";
-                //echo "<div class='col-sm-3 col-md-3 col-lg-3 media'>";
+                //echo "<div class='media col-sm-12 col-md-6 col-lg-4'><div class='media'>";
                 echo "<div class='medium'>";
                 //popup window code
                 echo "<div class='popup'>";
                 echo "<p>by $author</p>";
                 echo "<p>published by $publisher in $publisherDate</p>";
                 echo "<p>$mediaType</p><textarea>$description</textarea>";
-                if($SESSION)
-                 {echo "<form action='lending.php' method='get'><button type='submit'>lend</button></form>";}
+                $lendsql="select active from transactiondata where mediaId='$mediaId'"; 
+                $lend=mysqli_query($connect,$lendsql);
+                 
+                if(mysqli_num_rows($lend)>0)
+                 {$lendrow=mysqli_fetch_assoc($lend);
+                  if($lendrow['active']==1){$isLend=true;}
+                  if($lendrow['active']!=1){$isLend=false;}
+                 }
                 else
-                 {echo "<p class='advice'>please login or register to lend</p>";}
-                echo "</div>";  
+                 {$isLend=false;} 
 
+                if($SESSION&&!$isLend)
+                 {echo "<form action='lending.php' method='get'>";
+                  echo "<input style='display:none' name='mediaId' value='$mediaId'>";
+                  echo "<input style='display:none' name='user' value='$SESSION'>";
+                  echo "<button type='submit'>lend</button></form>";}
+                else         
+                 {if(!$isLend)
+                   {echo "<p class='advice'>please login or register to lend</p>";}
+                 }
+
+                if($isLend)
+                 {echo "<p class='advice'>the media is currently not available for lend</p>";} 
+                echo "</div>";  
+                // echo "</div>";                
+
+                if($isLend)
+                 {$lended="true";}
+                else
+                 {$lended="false";}
                 // image and title 
-                echo "<p><img src='img/$image' width='200' ></p><p class='fat'>$title</p>";
+                echo "<p><img src='img/$image' width='200' ></p>";
+                echo "<p class='fat'>$title</p>";        
+                echo "<form action='showdetails.php' method='post' id='mediaDetail'>";
+                echo "<input style='display:none' name='title' value='$title'> ";
+                echo "<input style='display:none' name='image' value='$image'> ";
+                echo "<input style='display:none' name='type' value='$mediaType'> ";  
+                echo "<input style='display:none' name='author' value='$author'> ";
+                echo "<input style='display:none' name='publisher' value='$publisher'> ";
+                echo "<input style='display:none' name='date' value='$publisherDate'> ";
+                echo "<input style='display:none' name='lend' value='$lended'> ";
+                echo "<input style='display:none' name='description' value='$description'> "; 
+                echo "<input style='display:none' name='isbn' value='$isbn'> ";
+                echo "<button>show media</button>"; 
+                echo "</form>";
                 echo "</div>"; 
                 
                 
@@ -110,7 +149,7 @@ else
 <?php 
   $connect=connectDB();
   if($connect)
-   {echo "connection to database successfull";
+   {echo "<p>connection to database successfull</p>";
     
     getAllMedia($connect);
    }
